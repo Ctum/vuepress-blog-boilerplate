@@ -15,7 +15,7 @@ jobs:
         run: yarn install
       - name: pwd
         run: pwd
-      - name: ll
-        run: ll
+      - name: ls
+        run: ls
       - name: build
         run: yarn build
