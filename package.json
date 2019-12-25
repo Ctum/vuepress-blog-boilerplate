@@ -1,0 +1,14 @@
+{
+  "name": "ctum-press",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vuepress dev src",
+    "build": "vuepress build src"
+  },
+  "author": "hanyang <shuerhy@163.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@vuepress/plugin-back-to-top": "^1.2.0",
+    "vuepress": "^1.2.0"
+  }
+}

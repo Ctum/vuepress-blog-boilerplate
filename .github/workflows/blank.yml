@@ -1,0 +1,37 @@
+on:
+  push:
+    branches: 
+      - master
+jobs:
+  deploy_job:
+    name: deploy to stage
+    runs-on: [ubuntu-18.04]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup Node
+        uses: actions/setup-node@master
+        with:
+          node-version: '10.x'
+      - name: Install Dependencies
+        run: yarn install
+      - name: Build
+        run: yarn build
+      - name: Set SSH Environment
+        env:
+          DOCS_DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$DOCS_DEPLOY_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com > ~/.ssh/known_hosts
+          chmod 700 ~/.ssh && chmod 600 ~/.ssh/*
+          git config --global user.email "hy12138@shu.edu.cn"
+          git config --global user.name "hanyang"
+      - name: Sync to Ctum.github.io
+        run: |
+          cd public
+          git init
+          git add .
+          git commit -m "deploy blog"
+          git push -f git@github.com:Ctum/Ctum.github.io.git master
