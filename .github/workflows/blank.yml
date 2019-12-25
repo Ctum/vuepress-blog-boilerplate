@@ -17,5 +17,11 @@ jobs:
         run: pwd
       - name: ls
         run: ls
+      - name: cd ..
+        run: cd ..
+      - name: pwd
+        run: pwd
+      - name: ls
+        run: ls
       - name: build
         run: yarn build
