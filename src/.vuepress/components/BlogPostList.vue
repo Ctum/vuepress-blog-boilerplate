@@ -1,20 +1,5 @@
 <template>
-	<div>  
-        <div 
-            v-if="selectedTags.length > 0"
-            class="filtered-heading"
-        >
-            <h2>
-                Filtered by {{ selectedTags.join(',') }}
-            </h2>
-            <button
-                type="button"
-                @click="resetTags"
-                class="btn clear-filter-btn"
-            >
-                Clear filter
-            </button>
-        </div>
+	<div> 
         <ul class="blog-list">
             <li v-for="(item, index) in filteredList"
                 class="blog-list__item">
@@ -29,23 +14,7 @@
                 </ul>
             </li>
         </ul>
-
-        <div class="pagination">
-            <button v-show="currentPage > 0" 
-                @click="previousPage"
-                class="button--pagination"
-                type="button" 
-            >
-                Previous
-            </button>
-            <button v-show="currentPage < totalPages - 1"
-                @click="nextPage"
-                class="button--pagination"
-                type="button"
-            >
-                Next
-            </button>
-        </div>
+        <Pagination :pages="totalPages" :current-page="currentPage" @page-change="pageChange"/>
     </div>
 </template>
 
@@ -53,6 +22,7 @@
 export default {
     name: 'BlogPostList',
     props: {
+        // 所有的文章
         pages: {
             type: Array,
             default: []
@@ -109,11 +79,8 @@ export default {
     },
 
     methods: {
-        nextPage() {
-            this.currentPage = this.currentPage >= this.totalPages - 1 ? this.totalPages - 1 : this.currentPage + 1
-        },
-        previousPage() {
-            this.currentPage = this.currentPage < 0 ? 0 : this.currentPage - 1
+        pageChange(index) {
+          this.currentPage= index-1;
         },
         addTag(tag) {
             const tagExists = this.selectedTags.some(item => {

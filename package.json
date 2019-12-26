@@ -9,6 +9,13 @@
   "license": "MIT",
   "devDependencies": {
     "@vuepress/plugin-back-to-top": "^1.2.0",
-    "vuepress": "^1.2.0"
+    "cheerio": "^1.0.0-rc.3",
+    "vuepress": "^1.2.0",
+    "vuepress-plugin-rss": "^2.0.0"
+  },
+  "dependencies": {
+    "request": "^2.88.0",
+    "request-promise": "^4.2.5",
+    "vue-carousel": "^0.18.0"
   }
 }
