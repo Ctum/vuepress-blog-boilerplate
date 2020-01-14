@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "request": "^2.88.0",
-    "request-promise": "^4.2.5",
-    "vue-carousel": "^0.18.0"
+    "request-promise": "^4.2.5"
   }
 }

@@ -1,66 +1,66 @@
 <template>
-  <div id="home">
-    <component v-if="dynamic1" :is="dynamic1" :autoplay="true" :autoplayHoverPause="false" :loop="true" :paginationEnabled="false" paginationPosition="bottom-overlay" :perPage="1" paginationColor="#000000">
-      <component v-if="dynamic2" :is="dynamic2" v-for="img in images">
-        <div :style="styleMethod(img)" class="image-fullpage"/>
-      </component>
-    </component>
+  <div id="home" :style="{ backgroundImage: currentImageUrl}">
+    <h1>Ctum 的 Blog</h1>
+    <div class="link">
+      <a href="/blog">博客</a>
+      <a href="/archive">归档</a>
+      <a href="/about">关于</a>
+    </div>
   </div>
 </template>
 
 <script>
-// import { getUrl1 } from '../spider';
 export default {
   name: 'Home',
   data() {
     return {
-      dynamic1: null,
-      dynamic2: null,
-      imageStyle: null,
+      index: 0,
+      currentImageUrl: '',
+      timer: 0,
     }
   },
   computed: {
     images() {
       return this.$themeConfig.images;
     },
-    homeStyle() {
-      return {
-        width: window.screen.availWidth + 'px',
-        height: window.screen.availHeight + 'px'
-      }
-    }
   },
   mounted: function() {
-    import('vue-carousel').then(module => {
-      this.dynamic1 = module.Carousel;
-      this.dynamic2 = module.Slide;
-    });
-    // const home = document.getElementById('home');
-    this.imageStyle = {
-      width: window.screen.availWidth + 'px',
-      height: window.screen.availHeight + 'px'
-    };
+    this.currentImageUrl = 'url(' + this.images[this.index] + ')';
+    this.timer = setInterval(() => {
+      const imgLength = this.images.length;
+      this.index = (this.index + 1) % imgLength;
+      this.currentImageUrl = 'url(' + this.images[this.index] + ')';
+    }, 5000);
   },
-  methods: {
-    styleMethod(img) {
-      return {
-        ...this.imageStyle,
-        backgroundImage: 'url(' + img + ')'
-      }
-    }
+  beforeDestroy() {
+    clearInterval(this.timer);
   }
 }
 </script>
 
 <style scoped>
-.image-fullpage {
-  z-index:-10;
-  zoom: 1;
-  background-color: #fff;
+#home {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -10;
   background-repeat: no-repeat;
   background-size: cover;
-  -webkit-background-size: cover;
-  -o-background-size: cover;
-  background-position: center 0;
+  transition: all 1s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#home > h1 {
+  color: white;
+  font-size: 56px;
+}
+#home a {
+  margin: 0 24px;
+  font-size: 28px;
 }
 </style>
