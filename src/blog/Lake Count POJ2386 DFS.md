@@ -3,7 +3,7 @@ title: Lake Count POJ2386 DFS
 date: 2020-1-14
 type: post
 blog: true
-excerpt: '来源POJ2386: http://poj.org/problem?id=2386', 主要学习使用DFS进行遍历搜索
+excerpt: 主要学习使用DFS进行遍历搜索
 ---
 
 # Lake Count POJ2386 DFS
